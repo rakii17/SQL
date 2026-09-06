@@ -24,3 +24,7 @@ CREATE TABLE stores_new
 	store_id INT UNIQUE,
     store_name VARCHAR(200) NOT NULL
 );
+
+DROP TABLE stores;
+
+TRUNCATE TABLE stores_new;
