@@ -14,3 +14,13 @@ CREATE TABLE stores
 INSERT INTO stores VALUES
 (1,"store1"),
 (2,"store2");
+
+INSERT INTO stores(store_id) VALUES
+(3);
+
+-- Create Table 2
+CREATE TABLE stores_new
+(
+	store_id INT UNIQUE,
+    store_name VARCHAR(200) NOT NULL
+);
