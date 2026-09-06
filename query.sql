@@ -1,3 +1,6 @@
-SHOW DATABASES;
-
 CREATE DATABASE sales;
+
+SHOW DATABASES;
+/* 
+
+*/

@@ -1,0 +1,10 @@
+#SHOW DATABASES;
+
+Database
+company
+company_db
+information_schema
+mysql
+performance_schema
+sales
+sys
