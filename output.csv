@@ -53,3 +53,65 @@ customer_key,customer_id,first_name,last_name,gender,email,phone,country,state,c
 184,CUST0184,Christopher,Ward,F,amanda07@example.net,22676356510515,Qatar,Montana,Barnettport,2025-10-09
 188,CUST0188,Thomas,Hall,F,andersenraymond@example.com,5936364462,Qatar,Indiana,Rebekahbury,2021-10-17
 -----------------------------
+
+#LIKE
+SELECT
+	*
+FROM
+	dim_customer
+WHERE
+	first_name LIKE 'R%h';
+
+Output:
+customer_key,customer_id,first_name,last_name,gender,email,phone,country,state,city,join_date
+26,CUST0026,Rebekah,Bowen,M,castrojustin@example.net,197533854277731,China,Georgia,"West Ginachester",2025-04-23
+-----------------------------
+
+#LIKE
+SELECT
+	*
+FROM
+	dim_customer
+WHERE
+	first_name LIKE 'R_be%'
+LIMIT 2;
+
+Output:
+customer_key,customer_id,first_name,last_name,gender,email,phone,country,state,city,join_date
+26,CUST0026,Rebekah,Bowen,M,castrojustin@example.net,197533854277731,China,Georgia,"West Ginachester",2025-04-23
+32,CUST0032,Rebecca,Cuevas,F,jmolina@example.org,4754603799,"Falkland Islands (Malvinas)","New York",Silvaland,2021-09-26
+-----------------------------
+
+#Sorting
+SELECT
+	*
+FROM
+	dim_product
+ORDER BY
+	unit_price DESC
+LIMIT 2;
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date
+443,PROD0443,"Likely Brother",Toys,BrandB,999.04,2023-02-21
+466,PROD0466,"Soon During",Electronics,BrandD,989.41,2023-07-13
+-----------------------------
+
+#Grouping
+SELECT
+	category,
+    avg(unit_price)
+FROM
+	dim_product
+GROUP BY
+	category;
+
+Output:
+category,avg price
+Clothing,548.095287
+"Home & Kitchen",464.065402
+Sports,488.677262
+Electronics,480.237273
+Toys,519.177436
+Books,474.874138
+-----------------------------

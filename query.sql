@@ -56,3 +56,37 @@ FROM
 	dim_customer
 WHERE
 	(gender = 'F') AND (country = 'Qatar'); 
+    
+-- LIKE
+SELECT
+	*
+FROM
+	dim_customer
+WHERE
+	first_name LIKE 'R%h';
+    
+SELECT
+	*
+FROM
+	dim_customer
+WHERE
+	first_name LIKE 'R_be%'
+LIMIT 2;
+
+-- Sorting
+SELECT
+	*
+FROM
+	dim_product
+ORDER BY
+	unit_price DESC
+LIMIT 2;
+
+-- Grouping
+SELECT
+	category,
+    avg(unit_price) as 'avg price'
+FROM
+	dim_product
+GROUP BY
+	category;
