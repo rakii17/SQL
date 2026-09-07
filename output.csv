@@ -291,3 +291,70 @@ customer_key,cust_str,first_name,last_name,full_name,concat_ws,country_len,LOWER
 2,2,Todd,Lucas,"Todd Lucas","Todd Lucas Djibouti",8,nicholasstad,danie,danielsnyder#example.org,Wyomi,50-80-3202,ToddTodd
 3,3,Matthew,Lee,"Matthew Lee","Matthew Lee Guinea-Bissau",13,janiceton,josep,joseph40#example.net,Monta,72-30-2202,MatthewMatthew
 -----------------------------
+
+#CONDITIONALS
+#CASE WHEN
+SELECT
+	*,
+    CASE
+		WHEN unit_price <= 400 THEN 'affordable'
+		WHEN unit_price <= 600 THEN 'normal'
+		ELSE 'expensive (but not for you!!)'
+    END AS price_category
+FROM
+	dim_product
+LIMIT 5;
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date,price_category
+1,PROD0001,"Figure Method",Clothing,BrandC,897.35,2020-12-06,"expensive (but not for you!!)"
+2,PROD0002,"Pressure That",Clothing,BrandD,920.58,2023-05-07,"expensive (but not for you!!)"
+3,PROD0003,"Huge Change",Clothing,BrandA,553.56,2025-07-03,normal
+4,PROD0004,"Plant Agency","Home & Kitchen",BrandA,97.33,2023-12-24,affordable
+5,PROD0005,"Fast Real","Home & Kitchen",BrandE,333.97,2025-09-28,affordable
+-----------------------------
+
+SELECT
+	*,
+    CASE
+		WHEN unit_price <= 400 AND category = 'clothing' THEN 'affordable'
+		WHEN unit_price <= 600 AND category = 'clothing' THEN 'normal'
+        WHEN unit_price > 600 AND category = 'clothing' THEN 'expensive (but not for you!!)'
+		ELSE CONCAT('Not for ',category)
+    END AS price_category
+FROM
+	dim_product
+LIMIT 7;
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date,price_category
+1,PROD0001,"Figure Method",Clothing,BrandC,897.35,2020-12-06,"expensive (but not for you!!)"
+2,PROD0002,"Pressure That",Clothing,BrandD,920.58,2023-05-07,"expensive (but not for you!!)"
+3,PROD0003,"Huge Change",Clothing,BrandA,553.56,2025-07-03,normal
+4,PROD0004,"Plant Agency","Home & Kitchen",BrandA,97.33,2023-12-24,"Not for Home & Kitchen"
+5,PROD0005,"Fast Real","Home & Kitchen",BrandE,333.97,2025-09-28,"Not for Home & Kitchen"
+6,PROD0006,"Whom Himself",Sports,BrandE,740.32,2021-12-25,"Not for Sports"
+7,PROD0007,"Dinner Whose",Electronics,BrandD,480.06,2023-05-04,"Not for Electronics"
+-----------------------------
+
+SELECT
+	*,
+    CASE
+		WHEN launch_date BETWEEN '2020-01-01' AND '2022-12-31' THEN 'oldest launch'
+        WHEN launch_date BETWEEN '2023-01-01' AND '2024-12-31' THEN 'old launch'
+        ELSE 'recent launch'
+	END AS launch_time
+FROM
+	dim_product
+LIMIT 5;
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date,launch_time
+1,PROD0001,"Figure Method",Clothing,BrandC,897.35,2020-12-06,"oldest launch"
+2,PROD0002,"Pressure That",Clothing,BrandD,920.58,2023-05-07,"old launch"
+3,PROD0003,"Huge Change",Clothing,BrandA,553.56,2025-07-03,"recent launch"
+4,PROD0004,"Plant Agency","Home & Kitchen",BrandA,97.33,2023-12-24,"old launch"
+5,PROD0005,"Fast Real","Home & Kitchen",BrandE,333.97,2025-09-28,"recent launch"
+-----------------------------
+
+

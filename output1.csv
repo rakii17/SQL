@@ -1,0 +1,6 @@
+product_key,product_id,product_name,category,brand,unit_price,launch_date,launch_time
+1,PROD0001,"Figure Method",Clothing,BrandC,897.35,2020-12-06,"oldest launch"
+2,PROD0002,"Pressure That",Clothing,BrandD,920.58,2023-05-07,"old launch"
+3,PROD0003,"Huge Change",Clothing,BrandA,553.56,2025-07-03,"recent launch"
+4,PROD0004,"Plant Agency","Home & Kitchen",BrandA,97.33,2023-12-24,"old launch"
+5,PROD0005,"Fast Real","Home & Kitchen",BrandE,333.97,2025-09-28,"recent launch"

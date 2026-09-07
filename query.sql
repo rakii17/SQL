@@ -241,4 +241,39 @@ FROM
 	dim_customer
 LIMIT 3;
 
+-- CONDITIONALS
+-- CASE WHEN
+SELECT
+	*,
+    CASE
+		WHEN unit_price <= 400 THEN 'affordable'
+		WHEN unit_price <= 600 THEN 'normal'
+		ELSE 'expensive (but not for you!!)'
+    END AS price_category
+FROM
+	dim_product
+LIMIT 5;
+
+SELECT
+	*,
+    CASE
+		WHEN unit_price <= 400 AND category = 'clothing' THEN 'affordable'
+		WHEN unit_price <= 600 AND category = 'clothing' THEN 'normal'
+        WHEN unit_price > 600 AND category = 'clothing' THEN 'expensive (but not for you!!)'
+		ELSE CONCAT('Not for ',category)
+    END AS price_category
+FROM
+	dim_product
+LIMIT 7;
+
+SELECT
+	*,
+    CASE
+		WHEN launch_date BETWEEN '2020-01-01' AND '2022-12-31' THEN 'oldest launch'
+        WHEN launch_date BETWEEN '2023-01-01' AND '2024-12-31' THEN 'old launch'
+        ELSE 'recent launch'
+	END AS launch_time
+FROM
+	dim_product
+LIMIT 5;
 
