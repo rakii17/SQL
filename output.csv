@@ -9,8 +9,8 @@ mysql
 performance_schema
 sales
 sys
-
 ---------------------------
+
 #USE DATABASE ecom
 #FIRST SELECT
 SELECT
@@ -24,8 +24,8 @@ customer_key,customer_id,first_name,last_name,gender,email,phone,country,state,c
 1,CUST0001,Antonio,Kelly,M,richard16@example.net,9904005277,Tunisia,"New Hampshire","Lake Timothy",2021-09-08
 2,CUST0002,Todd,Lucas,F,danielsnyder@example.org,0012907800627,Djibouti,Wyoming,Nicholasstad,2023-08-05
 3,CUST0003,Matthew,Lee,M,joseph40@example.net,001596505299143,Guinea-Bissau,Montana,Janiceton,2022-03-27
-
 ---------------------------
+
 #FIRST SELECT
 SELECT
 	customer_id,
@@ -38,4 +38,18 @@ customer_id,email
 CUST0001,richard16@example.net
 CUST0002,danielsnyder@example.org
 CUST0003,joseph40@example.net
+-----------------------------
+
+#WHERE
+SELECT
+	*
+FROM
+	dim_customer
+WHERE
+	(gender = 'F') AND (country = 'Qatar');
+
+Output:
+customer_key,customer_id,first_name,last_name,gender,email,phone,country,state,city,join_date
+184,CUST0184,Christopher,Ward,F,amanda07@example.net,22676356510515,Qatar,Montana,Barnettport,2025-10-09
+188,CUST0188,Thomas,Hall,F,andersenraymond@example.com,5936364462,Qatar,Indiana,Rebekahbury,2021-10-17
 -----------------------------

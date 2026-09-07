@@ -48,3 +48,11 @@ SELECT
 FROM
 	dim_customer
 LIMIT 3;
+
+-- WHERE
+SELECT
+	*
+FROM
+	dim_customer
+WHERE
+	(gender = 'F') AND (country = 'Qatar');
