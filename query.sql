@@ -85,8 +85,11 @@ LIMIT 2;
 -- Grouping
 SELECT
 	category,
-    avg(unit_price) as 'avg price'
+    avg(unit_price) as avg_price,
+    sum(unit_price) as total_price
 FROM
 	dim_product
 GROUP BY
-	category;
+	category
+HAVING
+	avg_price > 500;

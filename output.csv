@@ -100,18 +100,17 @@ product_key,product_id,product_name,category,brand,unit_price,launch_date
 #Grouping
 SELECT
 	category,
-    avg(unit_price)
+    avg(unit_price) as avg_price,
+    sum(unit_price) as total_price
 FROM
 	dim_product
 GROUP BY
-	category;
+	category
+HAVING
+	avg_price > 500;
 
 Output:
-category,avg price
-Clothing,548.095287
-"Home & Kitchen",464.065402
-Sports,488.677262
-Electronics,480.237273
-Toys,519.177436
-Books,474.874138
+category,avg_price,total_price
+Clothing,548.095287,47684.29
+Toys,519.177436,40495.84
 -----------------------------
