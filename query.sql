@@ -11,7 +11,7 @@ CREATE TABLE stores
 );
 
 -- Insert Records
-INSERT INTO stores VALUES
+INSERT INTO stores_new VALUES
 (1,"store1"),
 (2,"store2");
 
@@ -28,3 +28,7 @@ CREATE TABLE stores_new
 DROP TABLE stores;
 
 TRUNCATE TABLE stores_new;
+
+-- Alter Table
+ALTER TABLE stores_new
+ADD COLUMN store_city VARCHAR(200);
