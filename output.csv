@@ -193,3 +193,101 @@ o_id,cust_id,price,id,name,email
 3,501,1200,NULL,NULL,NULL
 NULL,NULL,NULL,301,pqr,rr
 -----------------------------
+
+#UPDATE
+UPDATE 
+	customer
+SET 
+	name = 'mno'
+WHERE 
+	id = 201;
+
+Output:
+id,name,email
+101,abc,aa
+201,mno,zz
+301,pqr,rr
+-----------------------------
+
+#USE DATABASE ecom | TRANSORMATIONS
+#Numeric Transformations
+SELECT 
+	unit_price,
+	unit_price * 0.85 as discounted_price,
+    unit_price + 10 as tariffed_price,
+    ROUND(unit_price,1) as rounded_price
+FROM
+	dim_product
+LIMIT 3;
+
+Output:
+unit_price,discounted_price,tariffed_price,rounded_price
+897.35,762.7475,907.35,897.4
+920.58,782.4930,930.58,920.6
+553.56,470.5260,563.56,553.6
+-----------------------------
+
+#DATE Transformations
+SELECT
+	date,
+    YEAR(date),
+    MONTH(date),
+    DAY(date),
+    WEEKDAY(date),
+    DAYNAME(date),
+    DATE(utc_timestamp()),
+    DATEDIFF(DATE(utc_timestamp()),date) total_days,
+    ADDDATE(date,3),
+    SUBDATE(date,3),
+    CAST('2026-09-06' AS DATETIME)
+FROM
+	dim_date
+LIMIT 4;
+
+Output:
+date,YEAR(date),MONTH(date),DAY(date),WEEKDAY(date),DAYNAME(date),DATE(utc_timestamp()),total_days,"ADDDATE(date,3)","SUBDATE(date,3)","CAST('2026-09-06' AS DATETIME)"
+2023-10-14,2023,10,14,5,Saturday,2026-09-07,1059,2023-10-17,2023-10-11,"2026-09-06 00:00:00"
+2023-10-15,2023,10,15,6,Sunday,2026-09-07,1058,2023-10-18,2023-10-12,"2026-09-06 00:00:00"
+2023-10-16,2023,10,16,0,Monday,2026-09-07,1057,2023-10-19,2023-10-13,"2026-09-06 00:00:00"
+2023-10-17,2023,10,17,1,Tuesday,2026-09-07,1056,2023-10-20,2023-10-14,"2026-09-06 00:00:00"
+-----------------------------
+
+SELECT 
+	date,
+    date_format(date, "%W %M %e %Y") as converted_date
+FROM
+	dim_date
+LIMIT 3;
+
+Output:
+date,converted_date
+2023-10-14,"Saturday October 14 2023"
+2023-10-15,"Sunday October 15 2023"
+2023-10-16,"Monday October 16 2023"
+-----------------------------
+
+#TYPE CASTING
+SELECT
+	customer_key,
+    CAST(customer_key AS CHAR(100)) AS cust_str,
+    first_name,
+    last_name,
+    CONCAT(first_name,' ',last_name) AS full_name,
+    CONCAT_WS(' ',first_name, last_name,country) AS concat_ws,
+    LENGTH(country) AS country_len,
+    LOWER(city),
+    SUBSTRING(email,1,5),
+    REPLACE(email,'@','#'),
+    LEFT(state,5),
+    REVERSE(join_date),
+    REPEAT(first_name,2)
+FROM
+	dim_customer
+LIMIT 3;
+
+Output:
+customer_key,cust_str,first_name,last_name,full_name,concat_ws,country_len,LOWER(city),"SUBSTRING(email,1,5)","REPLACE(email,'@','#')","LEFT(state,5)",REVERSE(join_date),"REPEAT(first_name,2)"
+1,1,Antonio,Kelly,"Antonio Kelly","Antonio Kelly Tunisia",7,"lake timothy",richa,richard16#example.net,"New H",80-90-1202,AntonioAntonio
+2,2,Todd,Lucas,"Todd Lucas","Todd Lucas Djibouti",8,nicholasstad,danie,danielsnyder#example.org,Wyomi,50-80-3202,ToddTodd
+3,3,Matthew,Lee,"Matthew Lee","Matthew Lee Guinea-Bissau",13,janiceton,josep,joseph40#example.net,Monta,72-30-2202,MatthewMatthew
+-----------------------------

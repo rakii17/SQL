@@ -119,13 +119,9 @@ INSERT INTO customer VALUES
 (201,'xyz','zz'), 
 (301,'pqr','rr');
 
-SET SQL_SAFE_UPDATES = 0;
-
 UPDATE orders
 SET cust_id = 201
 WHERE o_id = 2;
-
-SET SQL_SAFE_UPDATES = 1;
 
 -- INNER JOIN
 SELECT 
@@ -177,3 +173,72 @@ RIGHT JOIN
 	customer c
 	ON
 		o.cust_id = c.id;
+
+-- UPDATE
+UPDATE 
+	customer
+SET 
+	name = 'mno'
+WHERE 
+	id = 201;
+    
+-- DELETE
+DELETE FROM customer
+WHERE 
+	email = 'rr';
+
+-- USE DATABASE ecom | TRANSORMATIONS
+-- Numeric Transformations
+SELECT 
+	unit_price,
+	unit_price * 0.85 as discounted_price,
+    unit_price + 10 as tariffed_price,
+    ROUND(unit_price,1) as rounded_price
+FROM
+	dim_product
+LIMIT 3;
+
+-- DATE Transformations
+SELECT
+	date,
+    YEAR(date),
+    MONTH(date),
+    DAY(date),
+    WEEKDAY(date),
+    DAYNAME(date),
+    DATE(utc_timestamp()),
+    DATEDIFF(DATE(utc_timestamp()),date) total_days,
+    ADDDATE(date,3),
+    SUBDATE(date,3),
+    CAST('2026-09-06' AS DATETIME)
+FROM
+	dim_date
+LIMIT 4;
+
+SELECT 
+	date,
+    date_format(date, "%W %M %e %Y") as converted_date
+FROM
+	dim_date
+LIMIT 3;
+
+-- TYPE CASTING
+SELECT
+	customer_key,
+    CAST(customer_key AS CHAR(100)) AS cust_str,
+    first_name,
+    last_name,
+    CONCAT(first_name,' ',last_name) AS full_name,
+    CONCAT_WS(' ',first_name, last_name,country) AS concat_ws,
+    LENGTH(country) AS country_len,
+    LOWER(city),
+    SUBSTRING(email,1,5),
+    REPLACE(email,'@','#'),
+    LEFT(state,5),
+    REVERSE(join_date),
+    REPEAT(first_name,2)
+FROM
+	dim_customer
+LIMIT 3;
+
+
