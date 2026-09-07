@@ -32,3 +32,11 @@ TRUNCATE TABLE stores_new;
 -- Alter Table
 ALTER TABLE stores_new
 ADD COLUMN store_city VARCHAR(200);
+
+-- USE DATABASE ecom
+-- FIRST SELECT
+SELECT
+	customer_id,
+    email
+FROM
+	dim_customer;
