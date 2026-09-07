@@ -104,7 +104,7 @@ CREATE TABLE orders
 
 INSERT INTO orders VALUES
 (1,101,1000), 
-(2,202,1100), 
+(2,202,1100), -- (2,201,1100)
 (3,501,1200);
 
 CREATE TABLE customer
@@ -119,3 +119,61 @@ INSERT INTO customer VALUES
 (201,'xyz','zz'), 
 (301,'pqr','rr');
 
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE orders
+SET cust_id = 201
+WHERE o_id = 2;
+
+SET SQL_SAFE_UPDATES = 1;
+
+-- INNER JOIN
+SELECT 
+	*
+FROM
+	orders o
+INNER JOIN
+	customer c
+	ON
+		o.cust_id = c.id;
+        
+-- LEFT JOIN
+SELECT 
+	*
+FROM
+	orders o
+LEFT JOIN
+	customer c
+	ON
+		o.cust_id = c.id;
+        
+-- RIGHT JOIN
+SELECT 
+	*
+FROM
+	orders o
+RIGHT JOIN
+	customer c
+	ON
+		o.cust_id = c.id;
+        
+-- FULL JOIN (won't support directly. Have to use UNION)
+SELECT 
+	*
+FROM
+	orders o
+LEFT JOIN
+	customer c
+	ON
+		o.cust_id = c.id
+
+UNION
+        
+SELECT 
+	*
+FROM
+	orders o
+RIGHT JOIN
+	customer c
+	ON
+		o.cust_id = c.id;

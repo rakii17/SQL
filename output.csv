@@ -114,3 +114,82 @@ category,avg_price,total_price
 Clothing,548.095287,47684.29
 Toys,519.177436,40495.84
 -----------------------------
+
+#INNER JOIN
+SELECT 
+	*
+FROM
+	orders o
+INNER JOIN
+	customer c
+	ON
+		o.cust_id = c.id
+
+Output:
+o_id,cust_id,price,id,name,email
+1,101,1000,101,abc,aa
+2,201,1100,201,xyz,zz
+-----------------------------
+
+#LEFT JOIN
+SELECT 
+	*
+FROM
+	orders o
+LEFT JOIN
+	customer c
+	ON
+		o.cust_id = c.id
+
+Output:
+o_id,cust_id,price,id,name,email
+1,101,1000,101,abc,aa
+2,201,1100,201,xyz,zz
+3,501,1200,NULL,NULL,NULL
+-----------------------------
+
+#RIGHT JOIN
+SELECT 
+	*
+FROM
+	orders o
+RIGHT JOIN
+	customer c
+	ON
+		o.cust_id = c.id;
+
+Output:
+o_id,cust_id,price,id,name,email
+1,101,1000,101,abc,aa
+2,201,1100,201,xyz,zz
+NULL,NULL,NULL,301,pqr,rr
+-----------------------------
+
+#FULL JOIN (won't support directly. Have to use UNION)
+SELECT 
+	*
+FROM
+	orders o
+LEFT JOIN
+	customer c
+	ON
+		o.cust_id = c.id
+
+UNION
+        
+SELECT 
+	*
+FROM
+	orders o
+RIGHT JOIN
+	customer c
+	ON
+		o.cust_id = c.id;
+
+Output:
+o_id,cust_id,price,id,name,email
+1,101,1000,101,abc,aa
+2,201,1100,201,xyz,zz
+3,501,1200,NULL,NULL,NULL
+NULL,NULL,NULL,301,pqr,rr
+-----------------------------
