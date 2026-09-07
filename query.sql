@@ -36,7 +36,15 @@ ADD COLUMN store_city VARCHAR(200);
 -- USE DATABASE ecom
 -- FIRST SELECT
 SELECT
+	*
+FROM
+	dim_customer
+LIMIT 3;
+
+-- FIRST SELECT & LIMIT
+SELECT
 	customer_id,
     email
 FROM
-	dim_customer;
+	dim_customer
+LIMIT 3;
