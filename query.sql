@@ -55,4 +55,4 @@ SELECT
 FROM
 	dim_customer
 WHERE
-	(gender = 'F') AND (country = 'Qatar');
+	(gender = 'F') AND (country = 'Qatar'); 
