@@ -93,3 +93,29 @@ GROUP BY
 	category
 HAVING
 	avg_price > 500;
+    
+-- USE DATABASE sales | JOINS
+CREATE TABLE orders
+(
+	o_id INT,
+    cust_id INT,
+    price INT
+);
+
+INSERT INTO orders VALUES
+(1,101,1000), 
+(2,202,1100), 
+(3,501,1200);
+
+CREATE TABLE customer
+(
+	id INT,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+
+INSERT INTO customer VALUES
+(101,'abc','aa'), 
+(201,'xyz','zz'), 
+(301,'pqr','rr');
+
