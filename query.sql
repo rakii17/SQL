@@ -450,3 +450,19 @@ SELECT
     LEAD(temp,2,'not available') OVER(ORDER BY id ASC) AS next_2days_temp
 FROM
 	weather;
+    
+-- VIEWS
+CREATE VIEW dedup_view AS
+SELECT
+	subquery.*
+FROM
+(
+SELECT
+	*,
+    ROW_NUMBER() OVER(PARTITION BY id ORDER BY id) as row_num
+FROM
+	customer
+) as subquery
+WHERE
+	row_num = 1;
+
