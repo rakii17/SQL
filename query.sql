@@ -466,3 +466,32 @@ FROM
 WHERE
 	row_num = 1;
 
+-- STORED PROCEDURES
+DELIMITER //
+CREATE PROCEDURE first_procedure(IN p_id INT, IN p_name CHAR(100), IN p_email CHAR(100))
+BEGIN
+	INSERT INTO customer
+    VALUES
+    (p_id, p_name, p_email);
+END //
+
+DELIMITER ;
+call sales.first_procedure(5, 'abc', 'ab');
+
+-- FUNCTIONS
+DELIMITER //
+CREATE FUNCTION square_it(x INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+	return x*x;
+END //
+
+DELIMITER ;
+
+SELECT
+	*,
+    square_it(temp)
+FROM
+	weather
+LIMIT 3;

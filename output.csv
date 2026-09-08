@@ -612,3 +612,28 @@ id,temp,prev_day_temp,prev_2days_temp,next_day_temp,next_2days_temp
 6,17,20,15,14,"not available"
 7,14,17,20,"not available","not available"
 -----------------------------
+
+#FUNCTIONS
+DELIMITER //
+CREATE FUNCTION square_it(x INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+	return x*x;
+END //
+
+DELIMITER ;
+
+SELECT
+	*,
+    square_it(temp)
+FROM
+	weather
+LIMIT 3;
+
+Output:
+id,temp,square_it(temp)
+1,10,100
+2,12,144
+3,9,81
+-----------------------------
