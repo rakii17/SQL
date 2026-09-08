@@ -16,7 +16,7 @@ FROM
 LEFT JOIN
     Address a
 ON
-    p.personID = a.personID
+    p.personID = a.personID;
 
 /*Output:
 | firstName | lastName | city          | state    |
