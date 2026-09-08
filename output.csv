@@ -456,3 +456,92 @@ unit_price,category,row_number,rank,dense_rank
 14.24,Clothing,1,1,1
 61.20,Clothing,2,2,2
 -----------------------------
+
+#SUBQUERIES
+SELECT
+	*
+FROM
+	dim_product
+WHERE
+	unit_price > (SELECT AVG(unit_price) 
+					FROM dim_product)
+LIMIT 5;
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date
+1,PROD0001,"Figure Method",Clothing,BrandC,897.35,2020-12-06
+2,PROD0002,"Pressure That",Clothing,BrandD,920.58,2023-05-07
+3,PROD0003,"Huge Change",Clothing,BrandA,553.56,2025-07-03
+6,PROD0006,"Whom Himself",Sports,BrandE,740.32,2021-12-25
+10,PROD0010,"Possible Another",Books,BrandB,755.98,2022-06-06
+-----------------------------
+
+SELECT
+	*
+FROM (
+	SELECT
+		*
+	FROM
+		dim_product
+	WHERE
+		unit_price > (SELECT AVG(unit_price) 
+						FROM dim_product)
+	LIMIT 6
+) as subquery_table
+WHERE
+	category = 'Clothing';
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date
+1,PROD0001,"Figure Method",Clothing,BrandC,897.35,2020-12-06
+2,PROD0002,"Pressure That",Clothing,BrandD,920.58,2023-05-07
+3,PROD0003,"Huge Change",Clothing,BrandA,553.56,2025-07-03
+-----------------------------
+
+#CTEs
+WITH cte_table AS
+(
+SELECT
+	*
+FROM
+	dim_product
+WHERE
+	unit_price > (SELECT AVG(unit_price) 
+					FROM dim_product)
+LIMIT 5
+)
+SELECT * FROM cte_table
+WHERE
+	category IN ('Sports', 'Books');
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date
+6,PROD0006,"Whom Himself",Sports,BrandE,740.32,2021-12-25
+10,PROD0010,"Possible Another",Books,BrandB,755.98,2022-06-06
+-----------------------------
+
+-- CTEs 2
+WITH cte_table AS
+(
+SELECT
+	*
+FROM
+	dim_product
+WHERE
+	unit_price > (SELECT AVG(unit_price) 
+					FROM dim_product)
+LIMIT 5
+),
+cte_table2 AS
+(
+	SELECT * FROM cte_table
+	WHERE category NOT IN ('Sports', 'Books')
+)
+SELECT * FROM cte_table2
+WHERE
+	product_name LIKE 'F%';
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date
+1,PROD0001,"Figure Method",Clothing,BrandC,897.35,2020-12-06
+-----------------------------

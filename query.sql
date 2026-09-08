@@ -328,3 +328,66 @@ SELECT
 FROM
 	dim_product
 LIMIT 4 OFFSET 85;
+
+-- SUBQUERIES
+SELECT
+	*
+FROM
+	dim_product
+WHERE
+	unit_price > (SELECT AVG(unit_price) 
+					FROM dim_product)
+LIMIT 5;
+
+SELECT
+	*
+FROM (
+	SELECT
+		*
+	FROM
+		dim_product
+	WHERE
+		unit_price > (SELECT AVG(unit_price) 
+						FROM dim_product)
+	LIMIT 6
+) as subquery_table
+WHERE
+	category = 'Clothing';
+    
+-- CTEs
+WITH cte_table AS
+(
+SELECT
+	*
+FROM
+	dim_product
+WHERE
+	unit_price > (SELECT AVG(unit_price) 
+					FROM dim_product)
+LIMIT 5
+)
+SELECT * FROM cte_table
+WHERE
+	category IN ('Sports', 'Books');
+
+-- CTEs 2
+WITH cte_table AS
+(
+SELECT
+	*
+FROM
+	dim_product
+WHERE
+	unit_price > (SELECT AVG(unit_price) 
+					FROM dim_product)
+LIMIT 5
+),
+cte_table2 AS
+(
+	SELECT * FROM cte_table
+	WHERE category NOT IN ('Sports', 'Books')
+)
+SELECT * FROM cte_table2
+WHERE
+	product_name LIKE 'F%';
+	
