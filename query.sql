@@ -391,3 +391,36 @@ SELECT * FROM cte_table2
 WHERE
 	product_name LIKE 'F%';
 	
+-- REAL TIME SCENARIOS
+-- Finding the nth value
+SELECT
+	subquery.*
+FROM
+(
+SELECT
+	*,
+    DENSE_RANK() OVER(PARTITION BY category ORDER BY unit_price DESC) AS ranking
+FROM
+	dim_product
+) AS subquery
+WHERE
+	ranking = 2;
+    
+-- Removing Duplicates | USE DATABASE sales
+INSERT INTO customer VALUES
+('301', 'ijk','ii'),
+('101','abc','aa');
+
+-- Removing Duplicates | USE DATABASE sales
+SELECT
+	subquery.*
+FROM
+(
+SELECT
+	*,
+    ROW_NUMBER() OVER(PARTITION BY id ORDER BY id) as row_num
+FROM
+	customer
+) as subquery
+WHERE
+	row_num = 1;

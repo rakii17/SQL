@@ -545,3 +545,49 @@ Output:
 product_key,product_id,product_name,category,brand,unit_price,launch_date
 1,PROD0001,"Figure Method",Clothing,BrandC,897.35,2020-12-06
 -----------------------------
+
+#REAL TIME SCENARIOS
+#Finding the nth value
+SELECT
+	subquery.*
+FROM
+(
+SELECT
+	*,
+    DENSE_RANK() OVER(PARTITION BY category ORDER BY unit_price DESC) AS ranking
+FROM
+	dim_product
+) AS subquery
+WHERE
+	ranking = 2;
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date,ranking
+134,PROD0134,"Us Record",Books,BrandD,975.35,2021-10-20,2
+350,PROD0350,"Religious Others",Clothing,BrandA,978.30,2024-07-25,2
+171,PROD0171,"Answer Hot",Electronics,BrandA,985.18,2023-10-22,2
+163,PROD0163,"Program Parent","Home & Kitchen",BrandD,972.53,2024-05-10,2
+460,PROD0460,"Thing Probably",Sports,BrandA,966.16,2025-09-19,2
+408,PROD0408,"Air War",Toys,BrandE,967.14,2024-07-12,2
+-----------------------------
+
+#Removing Duplicates | USE DATABASE sales
+SELECT
+	subquery.*
+FROM
+(
+SELECT
+	*,
+    ROW_NUMBER() OVER(PARTITION BY id ORDER BY id) as row_num
+FROM
+	customer
+) as subquery
+WHERE
+	row_num = 1;
+
+Output:
+id,name,email,row_num
+101,abc,aa,1
+201,mno,zz,1
+301,ijk,ii,1
+-----------------------------
