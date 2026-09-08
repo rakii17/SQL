@@ -419,3 +419,22 @@ product_key,product_id,product_name,category,brand,unit_price,launch_date,"SUM(u
 96,PROD0096,"Special Stage",Sports,BrandC,201.47,2020-10-22,247895.03
 485,PROD0485,"Investment Listen",Toys,BrandB,250.31,2020-10-26,247895.03
 -----------------------------
+
+#RANKING
+SELECT
+	unit_price,
+    ROW_NUMBER() OVER(ORDER BY unit_price) AS 'row_number',
+    RANK() OVER(ORDER BY unit_price) AS 'rank',
+	DENSE_RANK() OVER(ORDER BY unit_price) AS 'dense_rank'
+FROM
+	dim_product
+LIMIT 5 OFFSET 454;
+
+Output:
+unit_price,row_number,rank,dense_rank
+892.75,455,455,455
+892.75,456,455,455
+893.80,457,457,456
+894.29,458,458,457
+897.20,459,459,458
+-----------------------------
