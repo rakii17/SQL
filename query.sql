@@ -277,3 +277,36 @@ FROM
 	dim_product
 LIMIT 5;
 
+
+-- WINDOW FUNCTIONS | RUNNING TOTAL
+SELECT
+	*,
+    SUM(unit_price) OVER(ORDER BY unit_price)
+FROM
+	dim_product
+LIMIT 4;
+
+-- MOVING AVERAGE
+SELECT
+	*,
+    AVG(unit_price) OVER(ORDER BY launch_date)
+FROM
+	dim_product
+LIMIT 4;
+
+-- FRAMES
+SELECT
+	*,
+    SUM(unit_price) OVER(ORDER BY launch_date ROWS BETWEEN unbounded preceding AND current row)
+FROM
+	dim_product
+LIMIT 4;
+
+SELECT
+	*,
+    SUM(unit_price) OVER(ORDER BY launch_date ROWS BETWEEN unbounded preceding AND unbounded following)
+FROM
+	dim_product
+LIMIT 4;
+
+

@@ -357,4 +357,65 @@ product_key,product_id,product_name,category,brand,unit_price,launch_date,launch
 5,PROD0005,"Fast Real","Home & Kitchen",BrandE,333.97,2025-09-28,"recent launch"
 -----------------------------
 
+#WINDOW FUNCTIONS | RUNNING TOTAL
+SELECT
+	*,
+    SUM(unit_price) OVER(ORDER BY unit_price)
+FROM
+	dim_product
+LIMIT 4;
 
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date,"SUM(unit_price) OVER(ORDER BY unit_price)"
+170,PROD0170,"Middle Forward",Sports,BrandE,11.82,2025-08-25,11.82
+296,PROD0296,"Look Interest","Home & Kitchen",BrandC,12.15,2021-07-15,23.97
+73,PROD0073,"Environment Performance",Electronics,BrandB,12.22,2024-03-23,36.19
+101,PROD0101,"Us Air","Home & Kitchen",BrandA,13.22,2022-03-23,49.41
+-----------------------------
+
+#MOVING AVERAGE
+SELECT
+	*,
+    AVG(unit_price) OVER(ORDER BY launch_date)
+FROM
+	dim_product
+LIMIT 4;
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date,"AVG(unit_price) OVER(ORDER BY launch_date)"
+304,PROD0304,"Good Both",Toys,BrandA,382.05,2020-10-18,382.050000
+229,PROD0229,"Exist Himself","Home & Kitchen",BrandB,189.22,2020-10-20,285.635000
+96,PROD0096,"Special Stage",Sports,BrandC,201.47,2020-10-22,257.580000
+485,PROD0485,"Investment Listen",Toys,BrandB,250.31,2020-10-26,255.762500
+-----------------------------
+
+#FRAMES
+SELECT
+	*,
+    SUM(unit_price) OVER(ORDER BY launch_date ROWS BETWEEN unbounded preceding AND current row)
+FROM
+	dim_product
+LIMIT 4;
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date,"SUM(unit_price) OVER(ORDER BY launch_date ROWS BETWEEN unbounded preceding AND current row)"
+304,PROD0304,"Good Both",Toys,BrandA,382.05,2020-10-18,382.05
+229,PROD0229,"Exist Himself","Home & Kitchen",BrandB,189.22,2020-10-20,571.27
+96,PROD0096,"Special Stage",Sports,BrandC,201.47,2020-10-22,772.74
+485,PROD0485,"Investment Listen",Toys,BrandB,250.31,2020-10-26,1023.05
+-----------------------------
+
+#SELECT
+	*,
+    SUM(unit_price) OVER(ORDER BY launch_date ROWS BETWEEN unbounded preceding AND unbounded following)
+FROM
+	dim_product
+LIMIT 4;
+
+Output:
+product_key,product_id,product_name,category,brand,unit_price,launch_date,"SUM(unit_price) OVER(ORDER BY launch_date ROWS BETWEEN unbounded preceding AND unbounded following)"
+304,PROD0304,"Good Both",Toys,BrandA,382.05,2020-10-18,247895.03
+229,PROD0229,"Exist Himself","Home & Kitchen",BrandB,189.22,2020-10-20,247895.03
+96,PROD0096,"Special Stage",Sports,BrandC,201.47,2020-10-22,247895.03
+485,PROD0485,"Investment Listen",Toys,BrandB,250.31,2020-10-26,247895.03
+-----------------------------
