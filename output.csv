@@ -591,3 +591,24 @@ id,name,email,row_num
 201,mno,zz,1
 301,ijk,ii,1
 -----------------------------
+
+#Lag and Lead
+SELECT
+	*,
+    LAG(temp,1,'not available') OVER(ORDER BY id ASC) AS prev_day_temp,
+    LAG(temp,2,'not available') OVER(ORDER BY id ASC) AS prev_2days_temp,
+    LEAD(temp,1,'not available') OVER(ORDER BY id ASC) AS next_day_temp,
+    LEAD(temp,2,'not available') OVER(ORDER BY id ASC) AS next_2days_temp
+FROM
+	weather;
+
+Output:
+id,temp,prev_day_temp,prev_2days_temp,next_day_temp,next_2days_temp
+1,10,"not available","not available",12,9
+2,12,10,"not available",9,15
+3,9,12,10,15,20
+4,15,9,12,20,17
+5,20,15,9,17,14
+6,17,20,15,14,"not available"
+7,14,17,20,"not available","not available"
+-----------------------------

@@ -424,3 +424,29 @@ FROM
 ) as subquery
 WHERE
 	row_num = 1;
+    
+-- Lag and Lead | USE DATABASE sales
+CREATE TABLE weather
+(
+	id INT,
+    temp FLOAT
+);
+
+INSERT INTO weather VALUES
+(1,10),
+(2,12),
+(3,9),
+(4,15),
+(5,20),
+(6,17),
+(7,14);
+
+-- Lag and Lead
+SELECT
+	*,
+    LAG(temp,1,'not available') OVER(ORDER BY id ASC) AS prev_day_temp,
+    LAG(temp,2,'not available') OVER(ORDER BY id ASC) AS prev_2days_temp,
+    LEAD(temp,1,'not available') OVER(ORDER BY id ASC) AS next_day_temp,
+    LEAD(temp,2,'not available') OVER(ORDER BY id ASC) AS next_2days_temp
+FROM
+	weather;
