@@ -7,10 +7,10 @@ Question Link: https://leetcode.com/problems/combine-two-tables/description/?env
 
 #Query:
 SELECT
-    firstName,
-    lastName,
-    city,
-    state
+    p.firstName,
+    p.lastName,
+    a.city,
+    a.state
 FROM
     Person p
 LEFT JOIN
