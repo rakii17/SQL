@@ -318,3 +318,13 @@ SELECT
 FROM
 	dim_product
 LIMIT 5 OFFSET 454;
+
+SELECT
+	unit_price,
+    category,
+    ROW_NUMBER() OVER(PARTITION BY category ORDER BY unit_price) AS 'row_number',
+    RANK() OVER(PARTITION BY category ORDER BY unit_price) AS 'rank',
+	DENSE_RANK() OVER(PARTITION BY category ORDER BY unit_price) AS 'dense_rank'
+FROM
+	dim_product
+LIMIT 4 OFFSET 85;

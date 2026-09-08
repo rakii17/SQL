@@ -438,3 +438,21 @@ unit_price,row_number,rank,dense_rank
 894.29,458,458,457
 897.20,459,459,458
 -----------------------------
+
+SELECT
+	unit_price,
+    category,
+    ROW_NUMBER() OVER(PARTITION BY category ORDER BY unit_price) AS 'row_number',
+    RANK() OVER(PARTITION BY category ORDER BY unit_price) AS 'rank',
+	DENSE_RANK() OVER(PARTITION BY category ORDER BY unit_price) AS 'dense_rank'
+FROM
+	dim_product
+LIMIT 4 OFFSET 85;
+
+Output:
+unit_price,category,row_number,rank,dense_rank
+975.35,Books,86,86,86
+978.88,Books,87,87,87
+14.24,Clothing,1,1,1
+61.20,Clothing,2,2,2
+-----------------------------
